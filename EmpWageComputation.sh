@@ -1,17 +1,16 @@
 echo "Welcome to the Employee Wage Computation Problem"
 
-isPartTime=1;
-isFullTime=2;
-totalSalary=0;
+
+totalWorkingHour=0;
 empRatePerHr=20;
 numWorkingDays=20;
 
-for (( day=1; day<=numWorkingDays; day++ ))
+while [[ $day -le 20 && totalWorkingHour -lt 40 ]]
 
 do
-empCheck=$((RANDOM%3));
+randomCheck=$((RANDOM%3));
 
-case  $empCheck in
+case  $ramdomCheck in
 		$isFullTime)
 			empHrs=8
 			;;
@@ -23,9 +22,16 @@ case  $empCheck in
 			;;
 esac
 
+totalWorkingHour=$(($totalWorkingHour+$empHrs))
+
+if [ $totalWorkingHour -gt 40 ]
+then
+totalWorkingHour=$(($totalWorkingHour+$empHrs))
+break;
+fi
 salary=$(($empHrs*$empRatePerHr));
 totalSalary=$(($totalSalary + $salary));
-
+((day++))
 done
 
-echo "EMployee has earned $totalSalary in a month";
+echo "Employee has earned $totalSalary in a month (Total working hour : $totalWorkingHour)";
